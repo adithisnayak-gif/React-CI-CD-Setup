@@ -1,11 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        NODE_ENV = 'test'
-        VERCEL_TOKEN = credentials('VERCEL_TOKEN')
-    }
-
     options {
         skipDefaultCheckout(true) // Skip the default checkout
     }
@@ -20,14 +14,6 @@ pipeline {
         stage('Checkout using SCM') {
             steps {
                 checkout scm // Checkout the code
-            }
-        }
-
-        stage('Take approval') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    input message: 'Do you want to proceed?', ok: 'Proceed'
-                }
             }
         }
 
